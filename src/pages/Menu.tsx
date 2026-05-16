@@ -1,92 +1,42 @@
-
-import croissant from "../assets/croissant.jpg"
-import shake from "../assets/shake.jpg"
-import nescafe from "../assets/nescafe.jpg"
-import icedcoffee from "../assets/icedcoffee.jpg"
-import cupcake from "../assets/cupcake.jpg"
-import cookies from "../assets/cookies.jpg"
 import { useContext } from "react"
 import { CartContext } from "../context/CartContext"
-type MenuItem = {
-  name: string
-  price: string
-  image: string
-}
 
 function Menu() {
   const { addToCart } = useContext(CartContext)
-  const menuItems: MenuItem[] = [
-    {
-      name: "Butter Croissant 🥐",
-      price: "$4",
-      image: croissant,
-    },
-    {
-      name: "Chocolate Shake 🍫",
-      price: "$6",
-      image: shake,
-    },
-    {
-      name: "Nescafe ☕",
-      price: "$3",
-      image: nescafe,
-    },
-    {
-      name: "Iced Coffee 🧋",
-      price: "$5",
-      image: icedcoffee,
-    },
-    {
-      name: "Vanilla Cupcake 🧁",
-      price: "$4",
-      image: cupcake,
-    },
-    {
-      name: "Cookies 🍪",
-      price: "$3",
-      image: cookies,
-    },
+
+  const items = [
+    { id: 1, name: "Croissant 🥐", price: 4 },
+    { id: 2, name: "Nescafe ☕", price: 3 },
+    { id: 3, name: "Iced Coffee 🧋", price: 5 },
+    { id: 4, name: "Shake 🍫", price: 6 },
   ]
 
   return (
     <div className="min-h-screen bg-stone-100 px-10 py-16">
 
-      <h1 className="text-5xl font-bold text-stone-900 text-center mb-14">
-        Our Menu ☕
+      <h1 className="text-5xl font-bold text-center mb-10">
+        Menu ☕
       </h1>
 
       <div className="grid md:grid-cols-3 gap-8">
 
-        {menuItems.map((item, index) => (
-          <div
-            key={index}
-            className="bg-white rounded-3xl overflow-hidden shadow-lg hover:shadow-2xl transition"
-          >
+        {items.map((item) => (
+          <div key={item.id} className="bg-white p-6 rounded-3xl shadow-lg">
 
-            <img
-              src={item.image}
-              alt={item.name}
-              className="w-full h-64 object-cover"
-            />
+            <h2 className="text-xl font-bold mb-2">
+              {item.name}
+            </h2>
 
-            <div className="p-6">
+            <p className="text-stone-600 mb-4">
+              ${item.price}
+            </p>
 
-              <h2 className="text-2xl font-bold text-stone-900 mb-2">
-                {item.name}
-              </h2>
-
-              <p className="text-xl text-stone-600 mb-4">
-                {item.price}
-              </p>
-
-              <button 
-                className="bg-stone-800 text-white px-6 py-3 rounded-full hover:bg-stone-900 transition"
-                onClick={addToCart}
-              >
-                Order Now
-              </button>
-
-            </div>
+            <button
+              onClick={() => addToCart(item)}
+              className="bg-stone-800 text-white px-6 py-3 rounded-full"
+            >
+              Order Now
+            </button>
 
           </div>
         ))}

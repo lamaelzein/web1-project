@@ -1,19 +1,27 @@
-import { useState } from "react"
-import { CartContext } from "./CartContext"
+import { useState, type ReactNode } from "react"
+import { CartContext,  type CartItem } from "./CartContext"
 
 type Props = {
-  children: React.ReactNode
+  children: ReactNode
 }
 
 function CartProvider({ children }: Props) {
-  const [cartCount, setCartCount] = useState(0)
+  const [cart, setCart] = useState<CartItem[]>([])
 
-  const addToCart = () => {
-    setCartCount((prev) => prev + 1)
+  const addToCart = (item: CartItem) => {
+    setCart(prev => [...prev, item])
+  }
+
+  const removeFromCart = (id: number) => {
+    setCart(prev => prev.filter(item => item.id !== id))
+  }
+
+  const clearCart = () => {
+    setCart([])
   }
 
   return (
-    <CartContext.Provider value={{ cartCount, addToCart }}>
+    <CartContext.Provider value={{ cart, addToCart, removeFromCart, clearCart }}>
       {children}
     </CartContext.Provider>
   )
