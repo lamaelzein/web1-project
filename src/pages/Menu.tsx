@@ -5,7 +5,8 @@ import nescafe from "../assets/nescafe.jpg"
 import icedcoffee from "../assets/icedcoffee.jpg"
 import cupcake from "../assets/cupcake.jpg"
 import cookies from "../assets/cookies.jpg"
-
+import { useContext } from "react"
+import { CartContext } from "../context/CartContext"
 type MenuItem = {
   name: string
   price: string
@@ -13,6 +14,7 @@ type MenuItem = {
 }
 
 function Menu() {
+  const { addToCart } = useContext(CartContext)
   const menuItems: MenuItem[] = [
     {
       name: "Butter Croissant 🥐",
@@ -77,7 +79,10 @@ function Menu() {
                 {item.price}
               </p>
 
-              <button className="bg-stone-800 text-white px-6 py-3 rounded-full hover:bg-stone-900 transition">
+              <button 
+                className="bg-stone-800 text-white px-6 py-3 rounded-full hover:bg-stone-900 transition"
+                onClick={addToCart}
+              >
                 Order Now
               </button>
 

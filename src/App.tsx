@@ -1,5 +1,5 @@
 import { BrowserRouter, Routes, Route } from "react-router-dom"
-
+import Login from "./pages/Login"
 import Navbar from "./components/Navbar"
 import Footer from "./components/Footer"
 import Menu from "./pages/Menu"
@@ -19,6 +19,7 @@ function App() {
         <Navbar />
 
         <Routes>
+          <Route path="/login" element={<Login />} />
 
           <Route path="/" element={<Home />} />
 
