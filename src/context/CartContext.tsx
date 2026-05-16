@@ -4,18 +4,17 @@ export type CartItem = {
   id: number
   name: string
   price: number
+  image: string
 }
 
 type CartContextType = {
   cart: CartItem[]
   addToCart: (item: CartItem) => void
   removeFromCart: (id: number) => void
-  clearCart: () => void
 }
 
 export const CartContext = createContext<CartContextType>({
   cart: [],
   addToCart: () => {},
   removeFromCart: () => {},
-  clearCart: () => {},
 })

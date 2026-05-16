@@ -23,13 +23,14 @@ function Booking() {
           />
 
           <select className="p-4 rounded-xl border border-stone-300">
-
+            <option>Journalig Corner</option>
             <option>Painting</option>
-
+            <option> Reading Area</option>
+            <option>DIY Crafts</option>
+            <option> Coffee Tasting</option>
+            <option>Floral Decoration</option>
             <option>Pottery</option>
-
             <option>Candle Making</option>
-
             <option>Bracelet Making</option>
 
           </select>

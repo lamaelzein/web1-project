@@ -1,45 +1,78 @@
 import { useState } from "react"
 
 function Login() {
+  const [email, setEmail] = useState("")
+  const [password, setPassword] = useState("")
   const [loading, setLoading] = useState(false)
   const [loggedIn, setLoggedIn] = useState(false)
 
-  const login = () => {
+  const handleLogin = () => {
+    if (!email || !password) {
+      alert("Please fill all fields")
+      return
+    }
+
     setLoading(true)
 
     setTimeout(() => {
       setLoading(false)
       setLoggedIn(true)
-    }, 1500)
+    }, 3000)
   }
 
   return (
-    <div className="min-h-screen flex items-center justify-center bg-stone-100">
+    <div className="min-h-screen flex justify-center items-center bg-stone-100">
 
-      <div className="bg-white p-10 rounded-3xl shadow-lg w-96">
+      <div className="bg-white p-10 rounded-3xl shadow-xl w-[400px]">
 
         {!loggedIn ? (
           <>
-            <h1 className="text-3xl mb-6">Login</h1>
+            <h1 className="text-4xl font-bold text-center mb-8">
+              Welcome Back ☕
+            </h1>
 
-            <button
-              onClick={login}
-              className="bg-stone-800 text-white w-full py-3 rounded-xl"
-            >
-              {loading ? "Loading..." : "Login"}
-            </button>
+            <div className="flex flex-col gap-5">
+
+              <input
+                type="email"
+                placeholder="Email"
+                value={email}
+                onChange={(e) => setEmail(e.target.value)}
+                className="p-4 border rounded-xl outline-none"
+              />
+
+              <input
+                type="password"
+                placeholder="Password"
+                value={password}
+                onChange={(e) => setPassword(e.target.value)}
+                className="p-4 border rounded-xl outline-none"
+              />
+
+              <button
+                onClick={handleLogin}
+                className="bg-stone-800 text-white py-4 rounded-xl hover:bg-stone-900 transition"
+              >
+                {loading ? "Logging in..." : "Login"}
+              </button>
+
+            </div>
           </>
         ) : (
-          <>
-            <h1 className="text-2xl mb-6">Welcome ☕</h1>
+          <div className="text-center">
+
+            <h1 className="text-4xl font-bold mb-6">
+              Logged In Successfully ✨
+            </h1>
 
             <button
               onClick={() => setLoggedIn(false)}
-              className="bg-red-500 text-white w-full py-3 rounded-xl"
+              className="bg-red-500 text-white px-6 py-3 rounded-xl"
             >
               Logout
             </button>
-          </>
+
+          </div>
         )}
 
       </div>

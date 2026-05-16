@@ -4,7 +4,9 @@ import pottery from "../assets/pottery.jpg"
 import candle from "../assets/candle.jpg"
 import activities from "../assets/activities.jpg"
 import painting from "../assets/painting.jpg"
-
+import reading from "../assets/reading.jpg"
+import floral from "../assets/floral.jpg"
+import craft from "../assets/craft.jpg"
 function Gallery() {
   const images = [
     coffee1,
@@ -13,19 +15,37 @@ function Gallery() {
     candle,
     activities,
     painting,
+    reading,
+    floral,
+    craft,
   ]
 
   return (
-    <div className="p-10">
-      <h1 className="text-4xl font-bold text-stone-900 mb-8">
-         Gallery
+    <div className="min-h-screen bg-stone-100 p-10">
+
+      <h1 className="text-5xl font-bold text-stone-900 mb-10 text-center">
+        ✨ Gallery ✨
       </h1>
 
       <div className="grid md:grid-cols-3 gap-6">
+
         {images.map((img, i) => (
-          <img key={i} src={img} className="rounded-2xl shadow-lg" />
+          <div
+            key={i}
+            className="overflow-hidden rounded-3xl shadow-xl"
+          >
+
+            <img
+              src={img}
+              alt="Gallery"
+              className="w-full h-72 object-cover hover:scale-110 transition duration-500"
+            />
+
+          </div>
         ))}
+
       </div>
+
     </div>
   )
 }

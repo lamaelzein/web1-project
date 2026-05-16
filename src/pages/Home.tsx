@@ -6,7 +6,7 @@ function Home() {
       <section className="px-10 py-24 text-center">
 
         <h1 className="text-6xl font-bold text-stone-900 mb-6">
-          Cozy Girls Café ☕🌸
+          Soukoun☕🌸
         </h1>
 
         <p className="text-xl text-stone-600 max-w-3xl mx-auto leading-9">

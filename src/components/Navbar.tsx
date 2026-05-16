@@ -14,7 +14,7 @@ function Navbar() {
     <nav className="bg-white shadow-md px-8 py-5 flex justify-between items-center">
 
       <h1 className="text-2xl font-bold text-stone-800">
-        Cozy Café ☕
+        Soukoun
       </h1>
 
       <div className="flex gap-6 font-medium items-center">
@@ -23,6 +23,7 @@ function Navbar() {
         <NavLink to="/activities" className={style}>Activities</NavLink>
         <NavLink to="/booking" className={style}>Booking</NavLink>
         <NavLink to="/gallery" className={style}>Gallery</NavLink>
+        <NavLink to="/about"className={style}>About</NavLink>
         <NavLink to="/menu" className={style}>Menu</NavLink>
         <NavLink to="/cart" className={style}>
           Cart ({cart.length})

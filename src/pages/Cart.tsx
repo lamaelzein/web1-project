@@ -2,49 +2,68 @@ import { useContext } from "react"
 import { CartContext } from "../context/CartContext"
 
 function Cart() {
-  const { cart, removeFromCart, clearCart } = useContext(CartContext)
+  const { cart, removeFromCart } = useContext(CartContext)
 
   const total = cart.reduce((sum, item) => sum + item.price, 0)
 
   return (
     <div className="min-h-screen bg-stone-100 px-10 py-16">
 
-      <h1 className="text-4xl font-bold mb-10">
-        Your Cart 🛒
+      <h1 className="text-5xl font-bold mb-10 text-center">
+        🛒 Your Cart
       </h1>
 
       {cart.length === 0 ? (
-        <p>No items in cart</p>
+        <p className="text-center text-xl text-stone-600">
+          No items added yet
+        </p>
       ) : (
         <>
-          {cart.map((item) => (
-            <div key={item.id} className="bg-white p-4 mb-4 rounded-xl flex justify-between">
+          <div className="grid md:grid-cols-2 gap-8">
 
-              <div>
-                <h2 className="font-bold">{item.name}</h2>
-                <p>${item.price}</p>
-              </div>
-
-              <button
-                onClick={() => removeFromCart(item.id)}
-                className="text-red-500"
+            {cart.map((item, index) => (
+              <div
+                key={index}
+                className="bg-white rounded-3xl shadow-xl overflow-hidden"
               >
-                Remove
-              </button>
 
-            </div>
-          ))}
+                <img
+                  src={item.image}
+                  alt={item.name}
+                  className="w-full h-64 object-cover"
+                />
 
-          <h2 className="text-2xl font-bold mt-6">
-            Total: ${total}
-          </h2>
+                <div className="p-6">
 
-          <button
-            onClick={clearCart}
-            className="mt-6 bg-stone-800 text-white px-6 py-3 rounded-full"
-          >
-            Checkout (Fake)
-          </button>
+                  <h2 className="text-2xl font-bold mb-2">
+                    {item.name}
+                  </h2>
+
+                  <p className="text-lg text-stone-600 mb-5">
+                    ${item.price}
+                  </p>
+
+                  <button
+                    onClick={() => removeFromCart(item.id)}
+                    className="bg-red-500 text-white px-6 py-3 rounded-xl"
+                  >
+                    Remove
+                  </button>
+
+                </div>
+
+              </div>
+            ))}
+
+          </div>
+
+          <div className="text-center mt-10">
+
+            <h2 className="text-3xl font-bold">
+              Total: ${total}
+            </h2>
+
+          </div>
         </>
       )}
 
