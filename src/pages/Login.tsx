@@ -2,47 +2,45 @@ import { useState } from "react"
 
 function Login() {
   const [loading, setLoading] = useState(false)
+  const [loggedIn, setLoggedIn] = useState(false)
 
-  const handleLogin = () => {
+  const login = () => {
     setLoading(true)
 
     setTimeout(() => {
       setLoading(false)
-      alert("Login Successful")
-    }, 2000)
+      setLoggedIn(true)
+    }, 1500)
   }
 
   return (
-    <div className="min-h-screen flex justify-center items-center bg-stone-100">
+    <div className="min-h-screen flex items-center justify-center bg-stone-100">
 
-      <div className="bg-white p-10 rounded-3xl shadow-lg w-[400px]">
+      <div className="bg-white p-10 rounded-3xl shadow-lg w-96">
 
-        <h1 className="text-4xl font-bold text-center mb-8">
-          Login ☕
-        </h1>
+        {!loggedIn ? (
+          <>
+            <h1 className="text-3xl mb-6">Login</h1>
 
-        <div className="flex flex-col gap-5">
+            <button
+              onClick={login}
+              className="bg-stone-800 text-white w-full py-3 rounded-xl"
+            >
+              {loading ? "Loading..." : "Login"}
+            </button>
+          </>
+        ) : (
+          <>
+            <h1 className="text-2xl mb-6">Welcome ☕</h1>
 
-          <input
-            type="email"
-            placeholder="Email"
-            className="p-4 border rounded-xl"
-          />
-
-          <input
-            type="password"
-            placeholder="Password"
-            className="p-4 border rounded-xl"
-          />
-
-          <button
-            onClick={handleLogin}
-            className="bg-stone-800 text-white py-4 rounded-xl"
-          >
-            {loading ? "Loading..." : "Login"}
-          </button>
-
-        </div>
+            <button
+              onClick={() => setLoggedIn(false)}
+              className="bg-red-500 text-white w-full py-3 rounded-xl"
+            >
+              Logout
+            </button>
+          </>
+        )}
 
       </div>
 
