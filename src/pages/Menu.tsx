@@ -1,6 +1,8 @@
 import { useContext } from "react"
 
 import { CartContext } from "../context/CartContext"
+
+
 import croissant from "../assets/croissant.jpg"
 import shake from "../assets/shake.jpg"
 import nescafe from "../assets/nescafe.jpg"
@@ -54,6 +56,7 @@ function Menu() {
       image: cookies,
     },
 
+   
   ]
 
   return (

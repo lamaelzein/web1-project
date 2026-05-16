@@ -1,73 +1,57 @@
-# React + TypeScript + Vite
+☕ Soukoun
+A warm and creative girls-only coffee shop where art, friendship, coffee, and cozy moments come together.
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+✨ Features
+🛍️ Browse coffee shop menu (drinks, desserts, etc.)
+🛒 Add and remove items from cart
+🔢 View cart quantity updates in real-time
+💳 Simple checkout flow (UI only or future backend integration)
+🎨 Clean and aesthetic UI designed for a cozy coffee shop vibe
 
-Currently, two official plugins are available:
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Oxc](https://oxc.rs)
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/)
+⚡ Built with React + TypeScript for performance and scalability
 
-## React Compiler
+🛠️ Tech Stack
+Frontend: React
+Language: TypeScript
+Styling: CSS / Tailwind 
+State Management: Context API (CartContext)
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+📂 Project Structure
+src/
+│
+├── components/        # Reusable UI components (cards, navbar, etc.)
+├── pages/             # Main pages (Home, Cart, Menu)
+├── context/           # CartContext for global state
+├── assets/            # Images and icons         
+└── App.tsx            # Main app entry
 
-## Expanding the ESLint configuration
+🚀 Getting Started
+1. Clone the repository
+git clone https://github.com/your-username/girls-coffee-shop.git
+2. Install dependencies
+npm install
+3. Run the project
+npm run dev
+🧠 How It Works
+Products are stored in a menu data file or fetched from a mock API
+Users can add items to the cart using a global CartContext
+Cart state updates dynamically across all pages
+The cart page displays all selected items with quantities and total price
+🛒 Cart System Note
 
-If you are developing a production application, we recommend updating the configuration to enable type-aware lint rules:
+If your cart page shows empty items:
 
-```js
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
+Make sure the app is wrapped with CartContext.Provider
+Ensure you are using the same context instance in all components
+Check that items are properly passed when calling addToCart()
+🎯 Future Improvements
+User authentication
+Backend database (store orders)
+Payment integration
+Order history per user
+Responsive mobile-first redesign
+👩‍💻 Author
 
-      // Remove tseslint.configs.recommended and replace with this
-      tseslint.configs.recommendedTypeChecked,
-      // Alternatively, use this for stricter rules
-      tseslint.configs.strictTypeChecked,
-      // Optionally, add this for stylistic rules
-      tseslint.configs.stylisticTypeChecked,
-
-      // Other configs...
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
-```
-
-You can also install [eslint-plugin-react-x](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x) and [eslint-plugin-react-dom](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-dom) for React-specific lint rules:
-
-```js
-// eslint.config.js
-import reactX from 'eslint-plugin-react-x'
-import reactDom from 'eslint-plugin-react-dom'
-
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
-      // Enable lint rules for React
-      reactX.configs['recommended-typescript'],
-      // Enable lint rules for React DOM
-      reactDom.configs.recommended,
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
-```
+Created by [Lama Zein]
+Girls Coffee Shop Project ☕💖

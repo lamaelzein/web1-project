@@ -1,5 +1,6 @@
-import { useState } from "react"
-import { CartContext,  type CartItem } from "./CartContext"
+import React, { useState } from "react"
+import { CartContext } from "./CartContext"
+import type { CartItem } from "./CartContext"
 
 type Props = {
   children: React.ReactNode
@@ -7,7 +8,7 @@ type Props = {
 
 function CartProvider({ children }: Props) {
   const [cart, setCart] = useState<CartItem[]>([])
-
+    console.log(cart)
   const addToCart = (item: CartItem) => {
     setCart((prev) => [...prev, item])
 

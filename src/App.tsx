@@ -9,6 +9,7 @@ import Booking from "./pages/Booking"
 import Gallery from "./pages/Gallery"
 import About from "./pages/About"
 import Contact from "./pages/Contact"
+import Cart from "./pages/Cart"
 
 function App() {
   return (
@@ -19,6 +20,7 @@ function App() {
         <Navbar />
 
         <Routes>
+          <Route path="/cart" element={<Cart />} />
           <Route path="/login" element={<Login />} />
 
           <Route path="/" element={<Home />} />
