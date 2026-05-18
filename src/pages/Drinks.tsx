@@ -2,28 +2,30 @@ import { useState } from "react";
 import { AgGridReact } from "ag-grid-react";
 import type { ColDef, ICellRendererParams } from "ag-grid-community";
 
-type Booking = {
+type Drink = {
   id: number;
   name: string;
+  price: number;
 };
 
-function Bookings() {
-  const [bookings, setBookings] = useState<Booking[]>(
-    JSON.parse(localStorage.getItem("bookings") || "[]")
+function Drinks() {
+  const [drinks, setDrinks] = useState<Drink[]>(
+    JSON.parse(localStorage.getItem("drinks") || "[]")
   );
 
   const handleDelete = (id: number) => {
-    const updated = bookings.filter(b => b.id !== id);
-    setBookings(updated);
-    localStorage.setItem("bookings", JSON.stringify(updated));
+    const updated = drinks.filter(d => d.id !== id);
+    setDrinks(updated);
+    localStorage.setItem("drinks", JSON.stringify(updated));
   };
 
-  const columnDefs: ColDef<Booking>[] = [
+  const columnDefs: ColDef<Drink>[] = [
     { field: "name" },
+    { field: "price" },
 
     {
       headerName: "Delete",
-      cellRenderer: (params: ICellRendererParams<Booking>) => (
+      cellRenderer: (params: ICellRendererParams<Drink>) => (
         <button onClick={() => handleDelete(params.data!.id)}>
           Delete
         </button>
@@ -33,13 +35,13 @@ function Bookings() {
 
   return (
     <div>
-      <h2>Bookings</h2>
+      <h2>Drinks</h2>
 
       <div className="ag-theme-quartz" style={{ height: 450, width: "100%" }}>
-        <AgGridReact rowData={bookings} columnDefs={columnDefs} />
+        <AgGridReact rowData={drinks} columnDefs={columnDefs} />
       </div>
     </div>
   );
 }
 
-export default Bookings;
+export default Drinks;

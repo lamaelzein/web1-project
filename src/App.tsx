@@ -1,47 +1,42 @@
-import { BrowserRouter, Routes, Route } from "react-router-dom"
-import Login from "./pages/Login"
-import Navbar from "./components/Navbar"
-import Footer from "./components/Footer"
-import Menu from "./pages/Menu"
-import Home from "./pages/Home"
-import Activities from "./pages/Activities"
-import Booking from "./pages/Booking"
-import Gallery from "./pages/Gallery"
-import About from "./pages/About"
-import Contact from "./pages/Contact"
-import Cart from "./pages/Cart"
-import { motion } from "framer-motion"
+import { Routes, Route } from "react-router-dom";
+
+import AuthLayout from "./layouts/AuthLayout";
+import MainLayout from "./layouts/MainLayout";
+
+import Login from "./pages/Login";
+import Dashboard from "./pages/Dashboard";
+import Drinks from "./pages/Drinks";
+import Bookings from "./pages/Booking";
+import Activities from "./pages/Activities";
+import Cart from "./pages/Cart";
+import About from "./pages/About";
+import Gallery from "./pages/Gallery";
+import Menu from "./pages/Menu";
 
 function App() {
   return (
-    <BrowserRouter>
+    <Routes>
 
-      <Navbar />
+      {/* AUTH */}
+      <Route element={<AuthLayout />}>
+        <Route path="/" element={<Login />} />
+      </Route>
 
-      <motion.div
-        initial={{ opacity: 0, y: 40 }}
-        animate={{ opacity: 1, y: 0 }}
-        transition={{ duration: 0.8 }}
-      >
+      {/* MAIN APP */}
+      <Route path="/dashboard" element={<MainLayout />}>
+        <Route index element={<Dashboard />} />
+        <Route path="drinks" element={<Drinks />} />
+        <Route path="bookings" element={<Bookings />} />
+        <Route path="activities" element={<Activities />} />
+        <Route path="cart" element={<Cart />} />
+        {/* NEW PAGES */}
+        <Route path="about" element={<About />} />
+        <Route path="gallery" element={<Gallery />} />
+        <Route path="menu" element={<Menu />} />
+      </Route>
 
-        <Routes>
-          <Route path="/" element={<Home />} />
-          <Route path="/activities" element={<Activities />} />
-          <Route path="/booking" element={<Booking />} />
-          <Route path="/gallery" element={<Gallery />} />
-          <Route path="/about" element={<About />} />
-          <Route path="/menu" element={<Menu />} />
-          <Route path="/contact" element={<Contact />} />
-          <Route path="/cart" element={<Cart />} />
-          <Route path="/login" element={<Login />} />
-        </Routes>
-
-      </motion.div>
-
-      <Footer />
-
-    </BrowserRouter>
-  )
+    </Routes>
+  );
 }
 
-export default App
+export default App;

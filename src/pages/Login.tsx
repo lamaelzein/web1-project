@@ -1,84 +1,106 @@
-import { useState } from "react"
+import { useState } from "react";
+import { useNavigate } from "react-router-dom";
+import { loginUser } from "../services/authService";
 
-function Login() {
-  const [email, setEmail] = useState("")
-  const [password, setPassword] = useState("")
-  const [loading, setLoading] = useState(false)
-  const [loggedIn, setLoggedIn] = useState(false)
+const Login = () => {
 
-  const handleLogin = () => {
-    if (!email || !password) {
-      alert("Please fill all fields")
-      return
+  const navigate = useNavigate();
+
+  const [username, setUsername] =
+    useState("");
+
+  const [password, setPassword] =
+    useState("");
+
+  const [error, setError] =
+    useState("");
+
+  const handleLogin = async (
+    e: React.FormEvent
+  ) => {
+
+    e.preventDefault();
+
+    try {
+
+      const data = await loginUser(
+        username,
+        password
+      );
+
+      localStorage.setItem(
+        "token",
+        data.accessToken
+      );
+
+      localStorage.setItem(
+        "user",
+        JSON.stringify(data)
+      );
+
+      navigate("/dashboard");
+
+    
+    } catch {
+
+      setError("Invalid username or password");
+
     }
-
-    setLoading(true)
-
-    setTimeout(() => {
-      setLoading(false)
-      setLoggedIn(true)
-    }, 3000)
-  }
+  };
 
   return (
-    <div className="min-h-screen flex justify-center items-center bg-stone-100">
 
-      <div className="bg-white p-10 rounded-3xl shadow-xl w-[400px]">
+    <div
+      style={{
+        display: "flex",
+        justifyContent: "center",
+        alignItems: "center",
+        height: "100vh",
+      }}
+    >
 
-        {!loggedIn ? (
-          <>
-            <h1 className="text-4xl font-bold text-center mb-8">
-              Welcome Back ☕
-            </h1>
+      <form
+        onSubmit={handleLogin}
+        style={{
+          width: "300px",
+          display: "flex",
+          flexDirection: "column",
+          gap: "10px",
+        }}
+      >
 
-            <div className="flex flex-col gap-5">
+        <h1>Login</h1>
 
-              <input
-                type="email"
-                placeholder="Email"
-                value={email}
-                onChange={(e) => setEmail(e.target.value)}
-                className="p-4 border rounded-xl outline-none"
-              />
+        <input
+          type="text"
+          placeholder="Username"
+          value={username}
+          onChange={(e) =>
+            setUsername(e.target.value)
+          }
+        />
 
-              <input
-                type="password"
-                placeholder="Password"
-                value={password}
-                onChange={(e) => setPassword(e.target.value)}
-                className="p-4 border rounded-xl outline-none"
-              />
+        <input
+          type="password"
+          placeholder="Password"
+          value={password}
+          onChange={(e) =>
+            setPassword(e.target.value)
+          }
+        />
 
-              <button
-                onClick={handleLogin}
-                className="bg-stone-800 text-white py-4 rounded-xl hover:bg-stone-900 transition"
-              >
-                {loading ? "Logging in..." : "Login"}
-              </button>
+        <button type="submit">
+          Login
+        </button>
 
-            </div>
-          </>
-        ) : (
-          <div className="text-center">
-
-            <h1 className="text-4xl font-bold mb-6">
-              Logged In Successfully ✨
-            </h1>
-
-            <button
-              onClick={() => setLoggedIn(false)}
-              className="bg-red-500 text-white px-6 py-3 rounded-xl"
-            >
-              Logout
-            </button>
-
-          </div>
+        {error && (
+          <p>{error}</p>
         )}
 
-      </div>
+      </form>
 
     </div>
-  )
-}
+  );
+};
 
-export default Login
+export default Login;

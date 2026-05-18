@@ -7,7 +7,7 @@ import painting from "../assets/painting.jpg"
 import reading from "../assets/reading.jpg"
 import floral from "../assets/floral.jpg"
 import craft from "../assets/craft.jpg"
-function Gallery() {
+ export default function Gallery() {
   const images = [
     coffee1,
     coffee2,
@@ -21,33 +21,30 @@ function Gallery() {
   ]
 
   return (
-    <div className="min-h-screen bg-stone-100 p-10">
+    <div style={{ padding: "40px" }}>
+      <h1>Gallery 📸</h1>
 
-      <h1 className="text-5xl font-bold text-stone-900 mb-10 text-center">
-        ✨ Gallery ✨
-      </h1>
-
-      <div className="grid md:grid-cols-3 gap-6">
-
-        {images.map((img, i) => (
-          <div
-            key={i}
-            className="overflow-hidden rounded-3xl shadow-xl"
-          >
-
-            <img
-              src={img}
-              alt="Gallery"
-              className="w-full h-72 object-cover hover:scale-110 transition duration-500"
-            />
-
-          </div>
+      <div
+        style={{
+          display: "grid",
+          gridTemplateColumns: "repeat(3, 1fr)",
+          gap: "15px",
+        }}
+      >
+        {images.map((img, index) => (
+          <img
+            key={index}
+            src={img}
+            alt={`gallery-${index}`}
+            style={{
+              width: "100%",
+              height: "200px",
+              objectFit: "cover",
+              borderRadius: "12px",
+            }}
+          />
         ))}
-
       </div>
-
     </div>
-  )
+  );
 }
-
-export default Gallery
