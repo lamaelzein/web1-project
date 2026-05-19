@@ -4,7 +4,7 @@ import type { ColDef, ICellRendererParams } from "ag-grid-community";
 
 type Booking = {
   id: number;
-  name: string;
+  name: string;//oo
 };
 
 function Bookings() {
