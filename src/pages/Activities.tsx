@@ -92,7 +92,7 @@ function Activities() {
 
               <div style={{ display: "flex", alignItems: "center", gap: 10 }}>
                 <span style={{ fontSize: 15, fontWeight: 500, color: "#c97b63" }}>
-                  {a.price.toFixed(2)} €
+                  {a.price.toFixed(2)} $
                 </span>
                 <span style={{
                   fontSize: 11, color: "#b08070",

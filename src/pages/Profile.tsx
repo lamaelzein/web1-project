@@ -142,7 +142,7 @@ function Profile() {
             {[
               { icon: <Star size={16} color="#c97b63" />,       label: "Points",       value: points },
               { icon: <ShoppingBag size={16} color="#c97b63" />, label: "Orders",       value: history.length },
-              { icon: <TrendingUp size={16} color="#c97b63" />,  label: "Total spent",  value: `${totalSpent.toFixed(2)} €` },
+              { icon: <TrendingUp size={16} color="#c97b63" />,  label: "Total spent",  value: `${totalSpent.toFixed(2)} $` },
               { icon: <Ticket size={16} color="#c97b63" />,      label: "Coupons",      value: availableCoupons.length },
             ].map(({ icon, label, value }) => (
               <div key={label} style={{
@@ -172,7 +172,7 @@ function Profile() {
               }} />
             </div>
             <p style={{ fontSize: 11, color: "#b08070", margin: 0 }}>
-              {pointsToNext} points until your next 20€ coupon
+              {pointsToNext} points until your next 20$ coupon
             </p>
           </div>
 
@@ -192,7 +192,7 @@ function Profile() {
                     <p style={{ fontSize: 12, fontFamily: "monospace", color: "#3d1f1a", margin: "0 0 2px" }}>{c.code}</p>
                     <p style={{ fontSize: 11, color: "#b08070", margin: 0 }}>Created {c.createdAt}</p>
                   </div>
-                  <span style={{ fontSize: 14, fontWeight: 500, color: "#c97b63" }}>−20€</span>
+                  <span style={{ fontSize: 14, fontWeight: 500, color: "#c97b63" }}>−20$</span>
                 </div>
               ))}
             </div>
@@ -225,7 +225,7 @@ function Profile() {
                     </div>
                     <div style={{ textAlign: "right" }}>
                       <p style={{ fontSize: 15, fontWeight: 500, color: "#c97b63", margin: "0 0 2px" }}>
-                        {order.total.toFixed(2)} €
+                        {order.total.toFixed(2)} $
                       </p>
                       <p style={{ fontSize: 11, color: "#b08070", margin: 0 }}>
                         +{order.pointsEarned} pts
@@ -245,7 +245,7 @@ function Profile() {
                         )}
                         <div style={{ flex: 1 }}>
                           <p style={{ fontSize: 13, color: "#3d1f1a", margin: 0 }}>{i.name}</p>
-                          <p style={{ fontSize: 11, color: "#b08070", margin: 0 }}>×{i.quantity} · {(i.price * i.quantity).toFixed(2)} €</p>
+                          <p style={{ fontSize: 11, color: "#b08070", margin: 0 }}>×{i.quantity} · {(i.price * i.quantity).toFixed(2)} $</p>
                         </div>
                       </div>
                     ))}

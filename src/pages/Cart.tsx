@@ -77,7 +77,7 @@ function Cart() {
               )}
               <div style={{ flex: 1 }}>
                 <p style={{ fontSize: 14, fontWeight: 500, color: "#3d1f1a", margin: "0 0 4px" }}>{item.name}</p>
-                <p style={{ fontSize: 13, color: "#c97b63", margin: 0 }}>{item.price.toFixed(2)} € each</p>
+                <p style={{ fontSize: 13, color: "#c97b63", margin: 0 }}>{item.price.toFixed(2)} $ each</p>
               </div>
               {/* Quantity */}
               <div style={{ display: "flex", alignItems: "center", gap: 8 }}>
@@ -94,7 +94,7 @@ function Cart() {
                 }}>+</button>
               </div>
               <span style={{ fontSize: 14, fontWeight: 500, color: "#3d1f1a", minWidth: 52, textAlign: "right" }}>
-                {(item.price * item.quantity).toFixed(2)} €
+                {(item.price * item.quantity).toFixed(2)} $
               </span>
               <button onClick={() => removeFromCart(item.id)} style={{
                 background: "none", border: "none", color: "#f09595", fontSize: 18, cursor: "pointer", padding: 4,
@@ -113,7 +113,7 @@ function Cart() {
             <p style={{ fontSize: 13, fontWeight: 500, color: "#3d1f1a", margin: "0 0 10px" }}>⭐ Your points</p>
             <p style={{ fontSize: 24, fontWeight: 500, color: "#c97b63", margin: "0 0 4px" }}>{points}</p>
             <p style={{ fontSize: 12, color: "#b08070", margin: "0 0 10px" }}>
-              {pointsToNext} points until next 20€ coupon
+              {pointsToNext} points until next 20$ coupon
             </p>
             {/* Progress bar */}
             <div style={{ background: "#fceee9", borderRadius: 999, height: 6, overflow: "hidden" }}>
@@ -124,7 +124,7 @@ function Cart() {
               }} />
             </div>
             <p style={{ fontSize: 11, color: "#b08070", margin: "6px 0 0" }}>
-              5 points per 1€ spent
+              5 points per 1$ spent
             </p>
           </div>
 
@@ -140,7 +140,7 @@ function Cart() {
                   marginBottom: 6, display: "flex", justifyContent: "space-between", alignItems: "center",
                 }}>
                   <span style={{ fontSize: 12, color: "#3d1f1a", fontFamily: "monospace" }}>{c.code}</span>
-                  <span style={{ fontSize: 12, fontWeight: 500, color: "#c97b63" }}>−20€</span>
+                  <span style={{ fontSize: 12, fontWeight: 500, color: "#c97b63" }}>−20$</span>
                   <button
                     onClick={() => setCouponInput(c.code)}
                     style={{
@@ -160,7 +160,7 @@ function Cart() {
             <p style={{ fontSize: 13, fontWeight: 500, color: "#3d1f1a", margin: "0 0 14px" }}>Order summary</p>
 
             <div style={{ display: "flex", justifyContent: "space-between", fontSize: 13, color: "#5a2d25", marginBottom: 6 }}>
-              <span>Subtotal</span><span>{subtotal.toFixed(2)} €</span>
+              <span>Subtotal</span><span>{subtotal.toFixed(2)} $</span>
             </div>
 
             {/* Coupon input */}
@@ -174,13 +174,13 @@ function Cart() {
             </div>
             {couponInput && (
               <p style={{ fontSize: 12, margin: "0 0 8px", color: availableCoupon ? "#3b6d11" : "#f09595" }}>
-                {availableCoupon ? "✅ Coupon applied — −20€" : "❌ Invalid or used coupon"}
+                {availableCoupon ? "✅ Coupon applied — −20$" : "❌ Invalid or used coupon"}
               </p>
             )}
 
             {discount > 0 && (
               <div style={{ display: "flex", justifyContent: "space-between", fontSize: 13, color: "#3b6d11", marginBottom: 6 }}>
-                <span>Discount</span><span>−{discount.toFixed(2)} €</span>
+                <span>Discount</span><span>−{discount.toFixed(2)} $</span>
               </div>
             )}
 
@@ -189,7 +189,7 @@ function Cart() {
               fontSize: 16, fontWeight: 500, color: "#3d1f1a",
               borderTop: "0.5px solid #f0d8d2", paddingTop: 10, marginTop: 4,
             }}>
-              <span>Total</span><span>{total.toFixed(2)} €</span>
+              <span>Total</span><span>{total.toFixed(2)} $</span>
             </div>
 
             <p style={{ fontSize: 12, color: "#b08070", margin: "8px 0 14px" }}>
@@ -242,7 +242,7 @@ function OrderHistorySection() {
                     Coupon used
                   </span>
                 )}
-                <span style={{ fontSize: 14, fontWeight: 500, color: "#c97b63" }}>{order.total.toFixed(2)} €</span>
+                <span style={{ fontSize: 14, fontWeight: 500, color: "#c97b63" }}>{order.total.toFixed(2)} $</span>
               </div>
             </div>
             <div style={{ display: "flex", flexWrap: "wrap", gap: 6 }}>

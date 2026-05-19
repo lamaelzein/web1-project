@@ -164,7 +164,7 @@ export function CartProvider({ children }: { children: React.ReactNode }) {
     return {
       success: true,
       message: newCoupons.length > 0
-        ? `Order placed! You earned ${earnedPoints} points and got a 20€ coupon!`
+        ? `Order placed! You earned ${earnedPoints} points and got a 20$ coupon!`
         : `Order placed! You earned ${earnedPoints} points.`,
     }
   }

@@ -196,7 +196,7 @@ function Bookings() {
                         fontSize: 11, background: "#fceee9", color: "#c97b63",
                         padding: "2px 8px", borderRadius: 999,
                       }}>
-                        {form.selectedActivity.price.toFixed(2)} € · {form.selectedActivity.duration}
+                        {form.selectedActivity.price.toFixed(2)} $ · {form.selectedActivity.duration}
                       </span>
                     </>
                   ) : "Select an activity"}
@@ -232,7 +232,7 @@ function Bookings() {
                         {a.name}
                       </span>
                       <span style={{ fontSize: 12, color: "#b08070" }}>
-                        {a.price.toFixed(2)} € · {a.duration}
+                        {a.price.toFixed(2)} $ · {a.duration}
                       </span>
                     </button>
                   ))}
@@ -261,7 +261,7 @@ function Bookings() {
                 </p>
               </div>
               <span style={{ marginLeft: "auto", fontSize: 14, fontWeight: 500, color: "#c97b63" }}>
-                {form.selectedActivity.price.toFixed(2)} €
+                {form.selectedActivity.price.toFixed(2)} $
               </span>
             </div>
           )}
@@ -336,7 +336,7 @@ function Bookings() {
               <div style={{ display: "flex", alignItems: "center", gap: 12 }}>
                 {b.price > 0 && (
                   <span style={{ fontSize: 14, fontWeight: 500, color: "#c97b63" }}>
-                    {b.price.toFixed(2)} €
+                    {b.price.toFixed(2)} $
                   </span>
                 )}
                 {isInCart(b.id) && (

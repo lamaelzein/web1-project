@@ -204,7 +204,7 @@ function Menu() {
                   {item.name}
                 </h2>
                 <p style={{ fontSize: 13, color: "#b08070", margin: "0 0 14px" }}>
-                  {item.price.toFixed(2)} €
+                  {item.price.toFixed(2)} $
                 </p>
 
                 {/* Add to cart button OR quantity control */}
