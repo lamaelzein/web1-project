@@ -3,6 +3,8 @@ import { useState, useEffect } from "react"
 import { useLocation } from "react-router-dom"
 import { useCart } from "../context/CartContext"
 import { ChevronDown, CalendarDays, Trash2 } from "lucide-react"
+import { Palette, Flame, Scissors, Camera, Coffee, Leaf } from "lucide-react"
+import paintingImg from "../assets/painting.jpg"
 
 type Booking = {
   id: number
@@ -26,10 +28,6 @@ type LocationState = {
   activity?: ActivityOption
 }
 
-// Same activities as Activities.tsx
-import paintingImg from "../assets/painting.jpg"
-import { Palette, Flame, Scissors, Camera, Coffee, Leaf } from "lucide-react"
-
 const activityOptions: ActivityOption[] = [
   { id: 101, name: "Painting",      image: paintingImg, price: 15, duration: "2h"   },
   { id: 102, name: "Pottery",                           price: 18, duration: "2.5h" },
@@ -48,13 +46,19 @@ const activityIcons: Record<string, React.ReactNode> = {
   "Tea Ceremony":  <Coffee size={16} color="#c97b63" />,
 }
 
+// Get booking key for current user
+const getBookingKey = () => {
+  const email = localStorage.getItem("currentUserEmail")
+  return email ? `bookings_${email}` : "bookings"
+}
+
 function Bookings() {
   const location = useLocation()
   const state = location.state as LocationState | null
   const { addToCart, removeFromCart, cart } = useCart()
 
   const [bookings, setBookings] = useState<Booking[]>(
-    () => JSON.parse(localStorage.getItem("bookings") || "[]")
+    () => JSON.parse(localStorage.getItem(getBookingKey()) || "[]")
   )
 
   const [form, setForm] = useState({
@@ -62,8 +66,14 @@ function Bookings() {
     date: "",
     selectedActivity: state?.activity ?? null as ActivityOption | null,
   })
-  const [showForm, setShowForm] = useState(!!state?.activity)
+  const [showForm, setShowForm]     = useState(!!state?.activity)
   const [dropdownOpen, setDropdownOpen] = useState(false)
+
+  // Reload bookings when user changes
+  useEffect(() => {
+    const key = getBookingKey()
+    setBookings(JSON.parse(localStorage.getItem(key) || "[]"))
+  }, [])
 
   useEffect(() => {
     if (state?.activity) {
@@ -71,6 +81,12 @@ function Bookings() {
       setShowForm(true)
     }
   }, [state])
+
+  const saveBookings = (updated: Booking[]) => {
+    const key = getBookingKey()
+    localStorage.setItem(key, JSON.stringify(updated))
+    setBookings(updated)
+  }
 
   const handleAdd = () => {
     if (!form.name || !form.date || !form.selectedActivity) return
@@ -85,12 +101,8 @@ function Bookings() {
       name: form.name,
     }
 
-    // Add to bookings list
-    const updated = [...bookings, newBooking]
-    setBookings(updated)
-    localStorage.setItem("bookings", JSON.stringify(updated))
+    saveBookings([...bookings, newBooking])
 
-    // Add to cart for payment
     addToCart({
       id: newBooking.id,
       name: `${form.selectedActivity.name} (${form.date})`,
@@ -103,10 +115,7 @@ function Bookings() {
   }
 
   const handleDelete = (booking: Booking) => {
-    const updated = bookings.filter(b => b.id !== booking.id)
-    setBookings(updated)
-    localStorage.setItem("bookings", JSON.stringify(updated))
-    // Remove from cart too
+    saveBookings(bookings.filter(b => b.id !== booking.id))
     removeFromCart(booking.id)
   }
 
@@ -151,7 +160,6 @@ function Bookings() {
           </h3>
 
           <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: 12, marginBottom: 12 }}>
-            {/* Name */}
             <div>
               <label style={{ fontSize: 12, color: "#b08070", display: "block", marginBottom: 5 }}>Your name</label>
               <input
@@ -161,7 +169,6 @@ function Bookings() {
                 onChange={e => setForm(f => ({ ...f, name: e.target.value }))}
               />
             </div>
-            {/* Date */}
             <div>
               <label style={{ fontSize: 12, color: "#b08070", display: "block", marginBottom: 5 }}>Date</label>
               <input
@@ -196,7 +203,7 @@ function Bookings() {
                         fontSize: 11, background: "#fceee9", color: "#c97b63",
                         padding: "2px 8px", borderRadius: 999,
                       }}>
-                        {form.selectedActivity.price.toFixed(2)} $ · {form.selectedActivity.duration}
+                        ${form.selectedActivity.price.toFixed(2)} · {form.selectedActivity.duration}
                       </span>
                     </>
                   ) : "Select an activity"}
@@ -207,7 +214,6 @@ function Bookings() {
                 />
               </button>
 
-              {/* Dropdown list */}
               {dropdownOpen && (
                 <div style={{
                   position: "absolute", top: "calc(100% + 4px)", left: 0, right: 0,
@@ -232,7 +238,7 @@ function Bookings() {
                         {a.name}
                       </span>
                       <span style={{ fontSize: 12, color: "#b08070" }}>
-                        {a.price.toFixed(2)} $ · {a.duration}
+                        ${a.price.toFixed(2)} · {a.duration}
                       </span>
                     </button>
                   ))}
@@ -261,7 +267,7 @@ function Bookings() {
                 </p>
               </div>
               <span style={{ marginLeft: "auto", fontSize: 14, fontWeight: 500, color: "#c97b63" }}>
-                {form.selectedActivity.price.toFixed(2)} $
+                ${form.selectedActivity.price.toFixed(2)}
               </span>
             </div>
           )}
@@ -336,7 +342,7 @@ function Bookings() {
               <div style={{ display: "flex", alignItems: "center", gap: 12 }}>
                 {b.price > 0 && (
                   <span style={{ fontSize: 14, fontWeight: 500, color: "#c97b63" }}>
-                    {b.price.toFixed(2)} $
+                    ${b.price.toFixed(2)}
                   </span>
                 )}
                 {isInCart(b.id) && (

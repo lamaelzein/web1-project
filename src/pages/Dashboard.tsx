@@ -12,9 +12,13 @@ const Dashboard = () => {
   const { cart, points, coupons, history } = useCart()
 
   const bookings: { id: number; name: string; activity: string; date?: string }[] = (() => {
-    try { return JSON.parse(localStorage.getItem("bookings") || "[]") }
-    catch { return [] }
-  })()
+  try {
+    const email = localStorage.getItem("currentUserEmail")
+    const key = email ? `bookings_${email}` : "bookings"
+    return JSON.parse(localStorage.getItem(key) || "[]")
+  }
+  catch { return [] }
+})()
 
   const cartCount   = cart.reduce((s, i) => s + i.quantity, 0)
   const totalSpent  = history.reduce((s, o) => s + o.total, 0)
@@ -25,7 +29,7 @@ const Dashboard = () => {
     { label: "Cart items",  value: cartCount,        sub: "ready to order",   icon: ShoppingBag, to: "/dashboard/cart",      color: "#c97b63" },
     { label: "Bookings",    value: bookings.length,  sub: "reservations",     icon: CalendarDays, to: "/dashboard/bookings", color: "#9b72aa" },
     { label: "Points",      value: points,           sub: "collected",        icon: Star,         to: "/dashboard/profile",  color: "#d4943a" },
-    { label: "Total spent", value: `${totalSpent.toFixed(0)}$`, sub: "all time", icon: BookOpen, to: "/dashboard/cart",     color: "#5a8a6a" },
+    { label: "Total spent", value: `${totalSpent.toFixed(0)}€`, sub: "all time", icon: BookOpen, to: "/dashboard/cart",     color: "#5a8a6a" },
   ]
 
   // Get current hour for greeting
@@ -114,7 +118,7 @@ const Dashboard = () => {
             <span style={{ fontSize: 13, fontWeight: 500, color: "#3d1f1a" }}>Points progress</span>
           </div>
           <span style={{ fontSize: 12, color: "#c97b63", fontWeight: 500 }}>
-            {pointsToNext} pts until 20$ coupon
+            {pointsToNext} pts until 20€ coupon
           </span>
         </div>
         <div style={{ background: "#fceee9", borderRadius: 999, height: 7, overflow: "hidden" }}>
@@ -171,7 +175,7 @@ const Dashboard = () => {
                   <p style={{ fontSize: 11, color: "#b08070", margin: 0 }}>{o.date}</p>
                 </div>
                 <span style={{ fontWeight: 500, color: "#c97b63", flexShrink: 0, marginLeft: 8 }}>
-                  {o.total.toFixed(2)} $
+                  {o.total.toFixed(2)} €
                 </span>
               </div>
             ))
