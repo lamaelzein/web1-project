@@ -22,9 +22,7 @@ function App() {
       <Route path="/" element={<Navigate to="/login" replace />} />
 
       {/* Protected */}
-      <Route
-        path="/dashboard"
-        element={
+      <Route path="/dashboard" element={
           <ProtectedRoute>
             <MainLayout />
           </ProtectedRoute>
