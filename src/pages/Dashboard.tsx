@@ -148,9 +148,6 @@ const Dashboard = () => {
             <h4 style={{ fontSize: 14, fontWeight: 500, color: "#3d1f1a", margin: 0, display: "flex", alignItems: "center", gap: 6 }}>
               <ShoppingBag size={14} color="#c97b63" /> Recent orders
             </h4>
-            <Link to="/dashboard/cart" style={{ fontSize: 11, color: "#c97b63", textDecoration: "none", display: "flex", alignItems: "center", gap: 3 }}>
-              View all <ArrowRight size={10} color="#c97b63" />
-            </Link>
           </div>
           {history.length === 0 ? (
             <div style={{ textAlign: "center", padding: "16px 0" }}>

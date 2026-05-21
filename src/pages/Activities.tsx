@@ -19,12 +19,12 @@ type Activity = {
 }
 
 const defaultActivities: Activity[] = [
-  { id: 1, name: "Painting",      description: "Express yourself on canvas in a relaxed atmosphere.",  price: 15, duration: "2h",   image: paintingImg,    isDefault: true },
-  { id: 2, name: "Pottery",       description: "Shape clay into something beautiful with your hands.", price: 18, duration: "2.5h", image: potteryImg,     isDefault: true },
-  { id: 3, name: "Candle Making", description: "Create your own scented candles to take home.",        price: 12, duration: "1.5h", image: candleImg,      isDefault: true },
-  { id: 4, name: "Embroidery",    description: "Learn the art of needlework in a cozy setting.",       price: 10, duration: "2h",   image: embroideryImg,  isDefault: true },
+  { id: 1, name: "Painting",      description: "Express yourself on canvas in a relaxed atmosphere.",  price: 15, duration: "2h",   image: paintingImg,     isDefault: true },
+  { id: 2, name: "Pottery",       description: "Shape clay into something beautiful with your hands.", price: 18, duration: "2.5h", image: potteryImg,      isDefault: true },
+  { id: 3, name: "Candle Making", description: "Create your own scented candles to take home.",        price: 12, duration: "1.5h", image: candleImg,       isDefault: true },
+  { id: 4, name: "Embroidery",    description: "Learn the art of needlework in a cozy setting.",       price: 10, duration: "2h",   image: embroideryImg,   isDefault: true },
   { id: 5, name: "Photo Walk",    description: "A guided walk around the café with photography tips.", price: 8,  duration: "1h",   image: photoSessionImg, isDefault: true },
-  { id: 6, name: "Tea Ceremony",  description: "A calming guided tea ritual, just for you.",           price: 10, duration: "1h",   image: teaImg,         isDefault: true },
+  { id: 6, name: "Tea Ceremony",  description: "A calming guided tea ritual, just for you.",           price: 10, duration: "1h",   image: teaImg,          isDefault: true },
 ]
 
 const defaultIcons: Record<string, React.ReactNode> = {
@@ -63,12 +63,13 @@ const emptyForm: FormState = { name: "", description: "", price: "", duration: "
 
 function Activities() {
   const navigate = useNavigate()
-  const [activities, setActivities] = useState<Activity[]>(loadActivities)
-  const [showModal, setShowModal]   = useState(false)
-  const [editTarget, setEditTarget] = useState<Activity | null>(null)
-  const [form, setForm]             = useState<FormState>(emptyForm)
-  const [preview, setPreview]       = useState("")
+  const [activities, setActivities]     = useState<Activity[]>(loadActivities)
+  const [showModal, setShowModal]       = useState(false)
+  const [editTarget, setEditTarget]     = useState<Activity | null>(null)
+  const [form, setForm]                 = useState<FormState>(emptyForm)
+  const [preview, setPreview]           = useState("")
   const [confirmDelete, setConfirmDelete] = useState<Activity | null>(null)
+  const [nameError, setNameError]       = useState("")
   const fileRef = useRef<HTMLInputElement>(null)
 
   const handleBook = (activity: Activity) => {
@@ -79,6 +80,7 @@ function Activities() {
     setEditTarget(null)
     setForm(emptyForm)
     setPreview("")
+    setNameError("")
     setShowModal(true)
   }
 
@@ -92,6 +94,7 @@ function Activities() {
       image:       a.image || "",
     })
     setPreview(a.image || "")
+    setNameError("")
     setShowModal(true)
   }
 
@@ -116,6 +119,19 @@ function Activities() {
 
   const handleSave = () => {
     if (!form.name || !form.price || !form.duration) return
+
+    // Check duplicate name only when adding new
+    if (!editTarget) {
+      const nameExists = activities.some(
+        a => a.name.toLowerCase().trim() === form.name.toLowerCase().trim()
+      )
+      if (nameExists) {
+        setNameError(`An activity named "${form.name}" already exists.`)
+        return
+      }
+    }
+
+    setNameError("")
 
     let updated: Activity[]
 
@@ -217,7 +233,6 @@ function Activities() {
                 </span>
               </div>
 
-              {/* Buttons */}
               <div style={{ display: "flex", gap: 8, marginTop: 4 }}>
                 <button
                   onClick={() => handleBook(a)}
@@ -231,8 +246,6 @@ function Activities() {
                 >
                   Book now
                 </button>
-
-                {/* Edit */}
                 <button
                   onClick={() => openEdit(a)}
                   style={{
@@ -244,8 +257,6 @@ function Activities() {
                 >
                   <Pencil size={14} color="#c97b63" />
                 </button>
-
-                {/* Delete */}
                 <button
                   onClick={() => setConfirmDelete(a)}
                   style={{
@@ -390,12 +401,35 @@ function Activities() {
                   style={{ display: "none" }} onChange={handleImageUpload} />
               </div>
 
+              {/* Name */}
               <div>
-                <label style={{ fontSize: 12, color: "#b08070", display: "block", marginBottom: 5 }}>Activity name *</label>
-                <input style={inputStyle} placeholder="e.g. Watercolor Workshop"
-                  value={form.name} onChange={e => setForm(f => ({ ...f, name: e.target.value }))} />
+                <label style={{ fontSize: 12, color: "#b08070", display: "block", marginBottom: 5 }}>
+                  Activity name *
+                </label>
+                <input
+                  style={{
+                    ...inputStyle,
+                    border: nameError ? "0.5px solid #f09595" : "0.5px solid #f0d8d2",
+                  }}
+                  placeholder="e.g. Watercolor Workshop"
+                  value={form.name}
+                  onChange={e => {
+                    setForm(f => ({ ...f, name: e.target.value }))
+                    setNameError("")
+                  }}
+                />
+                {nameError && (
+                  <p style={{
+                    fontSize: 12, color: "#f09595",
+                    margin: "5px 0 0",
+                    display: "flex", alignItems: "center", gap: 4,
+                  }}>
+                    <X size={11} color="#f09595" /> {nameError}
+                  </p>
+                )}
               </div>
 
+              {/* Description */}
               <div>
                 <label style={{ fontSize: 12, color: "#b08070", display: "block", marginBottom: 5 }}>Description</label>
                 <textarea
@@ -406,6 +440,7 @@ function Activities() {
                 />
               </div>
 
+              {/* Price + Duration */}
               <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: 10 }}>
                 <div>
                   <label style={{ fontSize: 12, color: "#b08070", display: "block", marginBottom: 5 }}>Price ($) *</label>
