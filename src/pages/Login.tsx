@@ -53,8 +53,8 @@ function Login() {
       return
     }
 
-    localStorage.setItem("user",             JSON.stringify(user))
-    localStorage.setItem("token",            "logged-in")
+    localStorage.setItem("user", JSON.stringify(user))
+    localStorage.setItem("token", "logged-in")
     localStorage.setItem("currentUserEmail", form.email)
 
     // Load this specific user's data into CartContext
