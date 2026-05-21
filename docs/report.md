@@ -88,13 +88,13 @@ The application was organized into reusable folders:
 
 ```text
 src/
- ├── components/
+ ├── api/
  ├── pages/
  ├── context/
  ├── data/
  ├── types/
  ├── assets/
- ├── router/
+ ├── services/
  └── main.tsx
 ```
 
@@ -102,13 +102,12 @@ src/
 
 | Folder | Purpose |
 |---|---|
-| components | Reusable UI components |
+| api |  axios instance |
 | pages | Main application pages |
 | context | Global state management |
-| data | Static menu and activity data |
-| types | TypeScript interfaces and types |
+| layout |  Main Layout |
 | assets | Images and icons |
-| router | Route protection and navigation |
+| services |  protection |
 
 ---
 

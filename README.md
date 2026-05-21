@@ -1,8 +1,10 @@
 ☕ Soukoun — Girls-Only Coffee Shop Web App
+
 A cozy, full-featured coffee shop web application built with React, TypeScript, and Vite. Designed exclusively as a safe and beautiful digital space for girls.
 
 
 ✨ Features
+
 🔐 Authentication
 
 User registration and login system
@@ -143,5 +145,3 @@ json{
 🙏 Credits
 Designed and developed with love for every girl who needs a cozy corner. ☕
 
-📄 License
-MIT License — feel free to use and modif
