@@ -92,7 +92,6 @@ src/
  ├── pages/
  ├── context/
  ├── data/
- ├── types/
  ├── assets/
  ├── services/
  └── main.tsx
@@ -105,7 +104,7 @@ src/
 | api |  axios instance |
 | pages | Main application pages |
 | context | Global state management |
-| layout |  Main Layout |
+| layout |  Main Layout Protected Route |
 | assets | Images and icons |
 | services |  protection |
 
